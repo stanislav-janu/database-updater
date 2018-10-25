@@ -1,0 +1,18 @@
+<h1>Save SQL:</h1>
+<div class="tracy-inner">
+	<form method="POST" action="/">
+		<div style="display: block;margin-bottom: 6px">
+			<label>
+				<textarea name="database_updater_form_new_sql" rows="10" style="width: 640px;border: 1px solid grey;font-family: Monospace"></textarea>
+			</label>
+		</div>
+		<div style="display: block">
+			<label for="database_updater_form_new_run">
+				<input type="checkbox" name="database_updater_form_new_run" id="database_updater_form_new_run"> Run this SQL
+			</label>
+			<input type="submit" value="Add" style="border: 1px solid darkgreen;padding: 4px 8px;background-color: lightgreen;float: right">
+		</div>
+		<input type="hidden" name="database_updater_form_new" value="run">
+		<input type="hidden" name="database_updater_form_back_link" value="{$back_link}">
+	</form>
+</div>

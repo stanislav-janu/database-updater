@@ -1,0 +1,24 @@
+{
+	"name": "stanislav-janu/database-updater",
+	"description": "Simple manager of database changes.",
+	"homepage": "https://lweb.cz",
+	"license": ["MIT"],
+	"authors": [
+		{
+			"name": "Stanislav Janů",
+			"homepage": "http://lweb.cz"
+		}
+	],
+	"require": {
+		"php": ">=7.1.0",
+		"stanislav-janu/date-time": "^1.0",
+		"nette/database": "^2.4",
+		"nette/utils": "^2.5",
+		"latte/latte": "^2.4",
+		"tracy/tracy": "^2.5"
+	},
+	"autoload": {
+		"classmap": ["src/"]
+	},
+	"minimum-stability": "stable"
+}
