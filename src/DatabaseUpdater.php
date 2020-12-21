@@ -40,7 +40,7 @@ class DatabaseUpdater
 		$this->database = $database;
 	}
 
-	final private function loadIndex()
+	private function loadIndex()
 	{
 		$data_file = $this->getDirectory().'/index.dat';
 		$f = fopen($data_file, 'r');
@@ -49,7 +49,7 @@ class DatabaseUpdater
 		$this->index = unserialize($serialized);
 	}
 
-	final private function saveIndex()
+	private function saveIndex()
 	{
 		$data_file = $this->getDirectory().'/index.dat';
 		$serialized = serialize($this->index);
@@ -147,7 +147,7 @@ HTML;
 		}
 	}
 
-	final private function doIt()
+	private function doIt()
 	{
 		if(!isset($_GET['database_updater_run']))
 			return null;
@@ -186,7 +186,7 @@ HTML;
 		// TODO: redirect to URL without our parameter.
 	}
 
-	final private function markAsUpdated()
+	private function markAsUpdated()
 	{
 		if(!isset($_GET['database_updater_mark_as_updated']))
 			return null;
@@ -203,7 +203,7 @@ HTML;
 		}
 	}
 
-	final private function doForm()
+	private function doForm()
 	{
 		if(!isset($_POST['database_updater_form_new']))
 			return null;
@@ -239,7 +239,7 @@ HTML;
 		}
 	}
 
-	final private function getDirectory() : string
+	private function getDirectory() : string
 	{
 		return $this->wwwDir.self::DIRECTORY;
 	}
