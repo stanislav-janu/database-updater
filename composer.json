@@ -9,15 +9,30 @@
 			"homepage": "http://lweb.cz"
 		}
 	],
-	"require": {
-		"php": ">=7.1.0",
-		"nette/database": "^2.3 || ^3.0",
-		"nette/utils": "^2.3 || ^3.0",
-		"latte/latte": "^2.3 || ^3.0",
-		"tracy/tracy": "^2.3 || ^3.0"
-	},
 	"autoload": {
 		"classmap": ["src/"]
 	},
-	"minimum-stability": "stable"
+	"require": {
+		"php": ">=8.0 <8.1",
+		"nette/database": "^3.1",
+		"nette/utils": "^3.2",
+		"latte/latte": "^2.9",
+		"tracy/tracy": "^2.8"
+	},
+	"require-dev": {
+		"rector/rector": "^0.9",
+		"stanislav-janu/phpstan": "^0.12.0"
+	},
+	"minimum-stability": "stable",
+	"extra": {
+		"branch-alias": {
+			"dev-master": "2.0-dev"
+		}
+	},
+	"scripts": {
+		"sa": "vendor/bin/phpstan.phar analyse --ansi",
+		"sacc": "vendor/bin/phpstan.phar clear-result-cache",
+		"r": "vendor/bin/rector process src --dry-run --ansi",
+		"r-f": "vendor/bin/rector process src --ansi"
+	}
 }
