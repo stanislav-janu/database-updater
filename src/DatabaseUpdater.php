@@ -208,7 +208,7 @@ HTML;
 
 	private function getDirectory(): string
 	{
-		return $this->wwwDir . self::DIRECTORY;
+		return $this->wwwDir . DIRECTORY_SEPARATOR . self::DIRECTORY;
 	}
 
 
