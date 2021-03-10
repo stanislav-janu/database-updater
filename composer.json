@@ -17,7 +17,7 @@
 		"nette/database": "^3.1",
 		"nette/utils": "^3.2",
 		"latte/latte": "^2.9",
-		"tracy/tracy": "^2.8"
+		"tracy/tracy": "^2.7"
 	},
 	"require-dev": {
 		"rector/rector": "^0.9",
