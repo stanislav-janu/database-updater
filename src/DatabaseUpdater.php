@@ -31,7 +31,9 @@ class DatabaseUpdater
 
 	private function loadIndex(): void
 	{
-		$this->index = unserialize(FileSystem::read($this->getFilePath()));
+		/** @var array<int|string, array<string, mixed>> $index */
+		$index = unserialize(FileSystem::read($this->getFilePath()));
+		$this->index = $index;
 	}
 
 
@@ -91,7 +93,7 @@ class DatabaseUpdater
 				}
 			}
 
-			if (count($new_files) > 0) {
+			if ($new_files !== []) {
 				$f = [];
 				foreach ($new_files as $file) {
 					$f[] = $file['file'];
