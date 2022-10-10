@@ -16,7 +16,7 @@ use function Safe\ksort;
 class DatabaseUpdater
 {
 	/** @var array<int|string, array<string, mixed>> */
-	public array $index;
+	public array $index = [];
 
 	const DIRECTORY = '../SQL';
 	const FILE = 'index.dat';
@@ -98,6 +98,7 @@ class DatabaseUpdater
 				foreach ($new_files as $file) {
 					$f[] = $file['file'];
 				}
+
 				$all_files = implode(',', $f);
 
 				echo '<h1>New database updates:</h1>';
@@ -115,6 +116,7 @@ class DatabaseUpdater
 </li>
 HTML;
 				}
+
 				echo '</ul>';
 				exit;
 			}
@@ -153,6 +155,7 @@ HTML;
 		if ($hasError) {
 			exit;
 		}
+
 		// TODO: redirect to URL without our parameter.
 	}
 
