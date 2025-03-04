@@ -8,7 +8,7 @@ use Tracy\IBarPanel;
 
 class DatabaseUpdaterPanel implements IBarPanel
 {
-	function getPanel(): string
+	public function getPanel(): string
 	{
 		return (new Engine())->renderToString(__DIR__ . '/panel.latte', [
 			'back_link' => $_SERVER['REQUEST_URI'],
@@ -16,7 +16,7 @@ class DatabaseUpdaterPanel implements IBarPanel
 	}
 
 
-	function getTab(): string
+	public function getTab(): string
 	{
 		return (new Engine())->renderToString(__DIR__ . '/tab.latte');
 	}

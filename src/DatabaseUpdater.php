@@ -8,9 +8,7 @@ use Nette\Database\Explorer;
 use Nette\Utils\Finder;
 use Nette\Utils\Strings;
 use Nette\Utils\DateTime;
-use Safe\Exceptions\ArrayException;
 use Tracy\Debugger;
-use function Safe\ksort;
 
 
 class DatabaseUpdater
@@ -18,8 +16,9 @@ class DatabaseUpdater
 	/** @var array<int|string, array<string, mixed>> */
 	public array $index = [];
 
-	const DIRECTORY = '../SQL';
-	const FILE = 'index.dat';
+	const string DIRECTORY = '../SQL';
+
+	const string FILE = 'index.dat';
 
 
 	public function __construct(
@@ -45,7 +44,7 @@ class DatabaseUpdater
 
 	final public function run(): void
 	{
-		if (!Debugger::$productionMode) {
+		if (Debugger::$productionMode !== true) {
 			$files = [];
 			foreach (Finder::findFiles('*.sql')
 				->from($this->getDirectory()) as $item) {
@@ -56,10 +55,7 @@ class DatabaseUpdater
 				];
 			}
 
-			try {
-				ksort($files);
-			} catch (ArrayException) {
-			}
+			ksort($files);
 
 			if (file_exists($this->getFilePath())) {
 				$this->loadIndex();
@@ -70,6 +66,7 @@ class DatabaseUpdater
 						$n++;
 					}
 				}
+
 				if ($n > 0) {
 					$this->saveIndex();
 				}
@@ -104,10 +101,8 @@ class DatabaseUpdater
 				echo '<h1>New database updates:</h1>';
 				echo '<a href="?database_updater_run=' . $all_files . '" style="font-size: 18px">UPDATE ALL</a>';
 				echo '<ul>';
-				$f = [];
 				foreach ($new_files as $file) {
-					$fc = nl2br(Strings::truncate(Strings::normalizeNewLines(FileSystem::read($this->getDirectory() . '/' . $file['file'])), 512));
-					$f[] = $file['file'];
+					$fc = nl2br(Strings::truncate(Strings::unixNewLines(FileSystem::read($this->getDirectory() . '/' . $file['file'])), 512));
 					echo <<< HTML
 <li>
 <h2>{$file['time']->format('j. F Y H:i')}</h2>
@@ -126,7 +121,7 @@ HTML;
 
 	private function doIt(): void
 	{
-		if (!isset($_GET['database_updater_run'])) {
+		if (!isset($_GET['database_updater_run']) || !is_string($_GET['database_updater_run'])) {
 			return;
 		}
 
@@ -162,7 +157,7 @@ HTML;
 
 	private function markAsUpdated(): void
 	{
-		if (!isset($_GET['database_updater_mark_as_updated'])) {
+		if (!isset($_GET['database_updater_mark_as_updated']) || !is_string($_GET['database_updater_mark_as_updated'])) {
 			return;
 		}
 
@@ -183,7 +178,7 @@ HTML;
 			return;
 		}
 
-		if (isset($_POST['database_updater_form_new_sql'])) {
+		if (isset($_POST['database_updater_form_new_sql']) && is_string($_POST['database_updater_form_new_sql'])) {
 			$sql = $_POST['database_updater_form_new_sql'];
 
 			$now = DateTime::from('now');
@@ -203,7 +198,7 @@ HTML;
 
 			$this->saveIndex();
 
-			if (isset($_POST['database_updater_form_back_link'])) {
+			if (isset($_POST['database_updater_form_back_link']) && is_string($_POST['database_updater_form_back_link'])) {
 				header('Location: ' . $_POST['database_updater_form_back_link']);
 				exit;
 			}
